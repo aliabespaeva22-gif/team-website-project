@@ -1,135 +1,167 @@
 <!DOCTYPE html>
 <html lang="kk">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Huggy Toys</title>
-<style>
-    /* Общие стили */
-    body {
-        margin: 0;
-        font-family: 'Arial', sans-serif;
-        background-color: #fffaf0; /* молочный фон */
-        color: #333;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Huggy Toys</title>
+    <style>
+        /* Общие стили */
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #fffaf0; /* молочный фон */
+            color: #333;
+            overflow-x: hidden;
+        }
 
-    /* Начальный экран */
-    #welcome {
-        position: fixed;
-        top: 0; left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(255, 250, 240, 0.95);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        z-index: 1000;
-        font-size: 2rem;
-        text-align: center;
-        padding: 20px;
-    }
-    #welcome button {
-        margin-top: 20px;
-        padding: 10px 20px;
-        font-size: 1.2rem;
-        background-color: #c0dfff; /* пастельный голубой */
-        border: none;
-        border-radius: 10px;
-        cursor: pointer;
-    }
+        /* Начальный экран */
+        #welcome {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 250, 240, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 1000;
+            font-size: 2rem;
+            text-align: center;
+            padding: 20px;
+        }
 
-    /* Эмодзи в углах */
-    .corner {
-        position: fixed;
-        font-size: 2rem;
-        z-index: 500;
-    }
-    .corner.top-left { top: 10px; left: 10px; }
-    .corner.top-right { top: 10px; right: 10px; }
-    .corner.bottom-left { bottom: 10px; left: 10px; }
-    .corner.bottom-right { bottom: 10px; right: 10px; }
+        #welcome button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            background-color: #c0dfff; /* пастельный голубой */
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
 
-    /* Навигация */
-    nav {
-        background-color: #ffe4e1; /* пастельный розовый */
-        display: flex;
-        justify-content: center;
-        padding: 10px 0;
-    }
-    nav a {
-        margin: 0 15px;
-        text-decoration: none;
-        color: #333;
-        font-weight: bold;
-        padding: 5px 10px;
-        border-radius: 5px;
-        transition: background-color 0.3s;
-    }
-    nav a:hover {
-        background-color: #c0dfff;
-    }
+        /* Эмодзи в углах */
+        .corner {
+            position: fixed;
+            font-size: 2rem;
+            z-index: 500;
+        }
+        .corner.top-left { top: 10px; left: 10px; }
+        .corner.top-right { top: 10px; right: 10px; }
+        .corner.bottom-left { bottom: 10px; left: 10px; }
+        .corner.bottom-right { bottom: 10px; right: 10px; }
 
-    /* Горизонтальные секции */
-    main {
-        display: flex;
-        overflow-x: hidden;
-    }
-    section {
-        min-width: 100%;
-        padding: 50px;
-        box-sizing: border-box;
-    }
+        /* Навигация */
+        nav {
+            background-color: #ffe4e1; /* пастельный розовый */
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+        }
 
-    /* Категории игрушек */
-    .categories {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
-    }
-    .category {
-        width: 30%;
-        background-color: #fdf5e6; /* пастельный цвет */
-        margin: 10px;
-        padding: 20px;
-        border: 2px solid #add8e6; /* синеватый контур */
-        border-radius: 15px;
-        text-align: center;
-        font-weight: bold;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    }
-    .category:hover {
-        background-color: #e6f0ff; /* чуть голубоватый при наведении */
-    }
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 10px;
+            transition: background-color 0.3s;
+            font-size: 1.2rem;
+        }
 
-    /* Контакты */
-    .contact-info p {
-        margin: 5px 0;
-    }
+        nav a:hover {
+            background-color: #c0dfff;
+        }
 
-    /* Футер */
-    footer {
-        text-align: center;
-        padding: 20px;
-        background-color: #ffe4e1;
-        margin-top: 30px;
-    }
+        /* Секция с категориями и прокрутка в бок */
+        main {
+            display: flex;
+            overflow-x: scroll;
+            scroll-snap-type: x mandatory;
+            padding: 20px;
+        }
 
-    /* Кнопка наверх */
-    #toTop {
-        position: fixed;
-        bottom: 30px;
-        right: 30px;
-        padding: 10px 15px;
-        font-size: 1.2rem;
-        background-color: #c0dfff;
-        border: none;
-        border-radius: 10px;
-        cursor: pointer;
-        display: none;
-    }
-</style>
+        section {
+            min-width: 100%;
+            padding: 50px;
+            box-sizing: border-box;
+            scroll-snap-align: start;
+            text-align: center;
+        }
+
+        .categories {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+
+        .category {
+            width: 30%;
+            background-color: #fdf5e6; /* пастельный цвет */
+            margin: 10px;
+            padding: 20px;
+            border: 2px solid #add8e6; /* синеватый контур */
+            border-radius: 15px;
+            text-align: center;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 1.1rem;
+        }
+
+        .category:hover {
+            background-color: #e6f0ff; /* голубоватый при наведении */
+        }
+
+        /* Стили информации о категории */
+        .category-info {
+            margin-top: 30px;
+            font-size: 1.2rem;
+            color: #555;
+        }
+
+        .category-info p {
+            margin-bottom: 10px;
+        }
+
+        /* Футер */
+        footer {
+            text-align: center;
+            padding: 30px;
+            background-color: #ffe4e1;
+            margin-top: 50px;
+        }
+
+        footer p {
+            font-size: 1rem;
+            color: #333;
+        }
+
+        /* Кнопка наверх */
+        #toTop {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            padding: 10px 15px;
+            font-size: 1.2rem;
+            background-color: #c0dfff;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            display: none;
+        }
+
+        /* Описание под главной надписью */
+        #welcome-description {
+            font-size: 1.2rem;
+            color: #555;
+            text-align: center;
+            padding: 20px 40px;
+            margin-top: 50px;
+        }
+    </style>
 </head>
 <body>
 
@@ -146,6 +178,12 @@
     <button onclick="document.getElementById('welcome').style.display='none'">Кіру</button>
 </div>
 
+<!-- Описание под главной надписью -->
+<div id="welcome-description">
+    <h2>Қош келдіңіздер!</h2>
+    <p>Біздің дүкенде сіз барлық жастағы адамдарға арналған жұмсақ ойыншықтарды таба аласыз. Біз әр түрлі сапалы, әдемі және қауіпсіз ойыншықтар ұсынамыз, олар балаларға қуаныш сыйлайды және үйге жылулық пен жайлылық қосады. Әрбір ойыншық - махаббатпен және ерекше көңілмен жасалған!</p>
+</div>
+
 <!-- Навигация -->
 <nav>
     <a href="#home">Басты бет</a>
@@ -154,6 +192,7 @@
     <a href="#about">Біз туралы</a>
 </nav>
 
+<!-- Основной контент -->
 <main>
     <!-- Басты бет -->
     <section id="home">
@@ -165,22 +204,21 @@
     <section id="products">
         <h2>Өнімдер</h2>
         <div class="categories">
-            <div class="category">Мультфильм кейіпкерлері</div>
-            <div class="category">Сіздің дизайндарыңыз</div>
-            <div class="category">Фильмдер бойынша</div>
-            <div class="category">Аниме кейіпкерлері</div>
-            <div class="category">Табиғаттағы жануарлар</div>
-            <div class="category">Классикалық ойыншықтар</div>
+            <div class="category" onclick="showCategoryInfo('multy')">Мультфильм кейіпкерлері</div>
+            <div class="category" onclick="showCategoryInfo('anime')">Аниме кейіпкерлері</div>
+            <div class="category" onclick="showCategoryInfo('films')">Фильмдер бойынша</div>
+        </div>
+
+        <div class="category-info" id="categoryInfo">
+            <!-- Информация о категории будет здесь -->
         </div>
     </section>
 
     <!-- Контакты -->
     <section id="contact">
         <h2>Байланыс</h2>
-        <div class="contact-info">
-            <p>Телефон: +7 771 777 9450</p>
-            <p>Мекен-жай: Сатпаева 52, Астана</p>
-        </div>
+        <p>Телефон: +7 771 777 9450</p>
+        <p>Мекен-жай: Сатпаева 52, Астана</p>
     </section>
 
     <!-- Мы о нас -->
@@ -192,7 +230,7 @@
 
 <!-- Футер -->
 <footer>
-    Фирма Huggy Toys © 2025, Астана
+    <p>Фирма Huggy Toys © 2025, Астана</p>
 </footer>
 
 <!-- Кнопка наверх -->
@@ -203,7 +241,11 @@
     window.onscroll = function() {
         document.getElementById('toTop').style.display = (window.scrollY > 300) ? 'block' : 'none';
     };
-</script>
 
-</body>
-</html>
+    // Функция для отображения информации о категории
+    function showCategoryInfo(category) {
+        let info = '';
+        if (category === 'multy') {
+            info = `
+                <h3>Мультфильм кейіпкерлері</h3>
+                <p>
